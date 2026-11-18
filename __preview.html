@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>Mobile preview</title>
+<style>
+  html,body{margin:0;background:#222;display:flex;gap:20px;padding:20px;font-family:sans-serif}
+  .col{display:flex;flex-direction:column;gap:6px;color:#eee;font-size:12px}
+  .clip{width:390px;height:844px;overflow:hidden;position:relative;background:#ecddbd}
+  .clip iframe{border:0;background:#ecddbd;display:block;position:absolute;left:0;top:0;width:390px;height:5200px}
+</style></head>
+<body>
+  <div class="col"><span id="lab">390px</span>
+    <div class="clip"><iframe id="f" src="/index.html"></iframe></div>
+  </div>
+<script>
+  var y = Number(new URLSearchParams(location.search).get("y") || 0);
+  var f = document.getElementById("f");
+  document.getElementById("lab").textContent = "390px @ y=" + y;
+  function place() { f.style.transform = "translateY(-" + y + "px)"; }
+  f.addEventListener("load", place);
+  if (location.hash) f.src = "/index.html" + location.hash;
+  place();
+</script>
+</body>
+</html>
